@@ -1,0 +1,122 @@
+{
+  "marketplaces": [
+    {
+      "name": "claude-plugins-official",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    {
+      "name": "claude-hud",
+      "repo": "jarrodwatts/claude-hud"
+    },
+    {
+      "name": "hwpx",
+      "repo": "airmang/hwpx-skill"
+    },
+    {
+      "name": "claude-security-audit",
+      "repo": "KORThomasJeong/claude-security-audit"
+    },
+    {
+      "name": "planning-helper-kit",
+      "repo": "KORThomasJeong/planning-helper-kit"
+    },
+    {
+      "name": "claude-loop-runner",
+      "repo": "KORThomasJeong/claude-loop-runner"
+    },
+    {
+      "name": "claude-research-prompter",
+      "repo": "KORThomasJeong/claude-research-prompter"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "superpowers@claude-plugins-official"
+    },
+    {
+      "id": "frontend-design@claude-plugins-official"
+    },
+    {
+      "id": "context7@claude-plugins-official"
+    },
+    {
+      "id": "claude-hud@claude-hud"
+    },
+    {
+      "id": "hwpx-plugin@hwpx"
+    },
+    {
+      "id": "security-audit@claude-security-audit"
+    },
+    {
+      "id": "ph@planning-helper-kit"
+    },
+    {
+      "id": "loop-runner@claude-loop-runner"
+    },
+    {
+      "id": "research-prompter@claude-research-prompter"
+    },
+    {
+      "id": "telegram@claude-plugins-official",
+      "optional": true,
+      "note": "봇 토큰이 필요하고 PC마다 따로 설정"
+    }
+  ],
+  "skillPackages": [
+    {
+      "source": "mattpocock/skills",
+      "skills": [
+        "ask-matt",
+        "claude-handoff",
+        "code-review",
+        "codebase-design",
+        "diagnosing-bugs",
+        "domain-modeling",
+        "git-guardrails-claude-code",
+        "grill-me",
+        "grill-with-docs",
+        "grilling",
+        "handoff",
+        "implement",
+        "improve-codebase-architecture",
+        "loop-me",
+        "migrate-to-shoehorn",
+        "prototype",
+        "research",
+        "scaffold-exercises",
+        "setup-matt-pocock-skills",
+        "setup-pre-commit",
+        "setup-ts-deep-modules",
+        "tdd",
+        "teach",
+        "to-spec",
+        "to-tickets",
+        "triage",
+        "wayfinder",
+        "wizard",
+        "writing-beats",
+        "writing-fragments",
+        "writing-shape"
+      ]
+    },
+    {
+      "source": "vercel-labs/skills",
+      "skills": [
+        "find-skills"
+      ]
+    },
+    {
+      "source": "awslabs/agent-plugins",
+      "skills": [
+        "aws-architecture-diagram"
+      ]
+    }
+  ],
+  "ignorePlugins": [
+    "mattpocock-skills@claude-plugins-official"
+  ],
+  "ignoreSkills": [
+    "릴리즈"
+  ]
+}
