@@ -315,6 +315,22 @@ function collectDiff() {
   return { m, changes };
 }
 
+// 공개 레포라서 올리기 전에 흔한 키 형식을 검사한다
+const SECRET_PATTERNS = [
+  /gh[pousr]_[A-Za-z0-9]{30,}/, /github_pat_[A-Za-z0-9_]{30,}/, /sk-ant-[A-Za-z0-9_-]{20,}/,
+  /sk-(proj-)?[A-Za-z0-9]{32,}/, /AKIA[0-9A-Z]{16}/, /xox[abpr]-[A-Za-z0-9-]{10,}/,
+  /AIza[0-9A-Za-z_-]{35}/, /-----BEGIN [A-Z ]*PRIVATE KEY-----/, /\b\d{8,10}:[A-Za-z0-9_-]{35}\b/, // 텔레그램 봇 토큰
+];
+function findSecrets() {
+  const hits = [];
+  const files = [MANIFEST, ...(fs.existsSync(REPO_SKILLS) ? listFiles(REPO_SKILLS).map((f) => path.join(REPO_SKILLS, f)) : [])];
+  for (const f of files) {
+    let text; try { text = fs.readFileSync(f, 'utf8'); } catch { continue; }
+    for (const re of SECRET_PATTERNS) if (re.test(text)) { hits.push(`${path.relative(REPO, f)} (${re.source.slice(0, 20)}…)`); break; }
+  }
+  return hits;
+}
+
 function exportState() {
   const { m, changes } = collectDiff();
   if (!changes.length) { log('manifest와 현재 PC가 같습니다. 추가할 것이 없습니다.'); return; }
@@ -322,6 +338,14 @@ function exportState() {
   if (DRY) { log('\n(dry-run) 파일은 바꾸지 않았습니다.'); return; }
   writeJson(MANIFEST, m);
   log('\nmanifest.json 과 skills/ 를 갱신했습니다.');
+  const leaks = findSecrets();
+  if (leaks.length) {
+    log('\n[중단] 비밀값으로 보이는 문자열이 있어 커밋·푸시하지 않았습니다 (공개 레포):');
+    for (const l of leaks) log('  ' + l);
+    log('해당 파일을 고치거나 그 스킬을 ignoreSkills에 넣은 뒤 다시 실행하세요.');
+    process.exitCode = 1;
+    return;
+  }
   if (flag('--push')) {
     const host = os.hostname();
     run('git', ['-C', REPO, 'add', '-A'], { allowFail: false });

@@ -17,7 +17,15 @@ git clone https://github.com/KORThomasJeong/claude-setup.git ~/.claude-setup
 sh ~/.claude-setup/install.sh
 ```
 
-필요한 것: `claude`, `git`, `node`(18 이상). 비공개 레포라서 clone할 때 GitHub 로그인이 필요합니다.
+clone 없이 한 줄로 해도 됩니다. 스크립트가 `~/.claude-setup`에 받아서 설치합니다.
+```powershell
+irm https://raw.githubusercontent.com/KORThomasJeong/claude-setup/main/install.ps1 | iex
+```
+```sh
+curl -fsSL https://raw.githubusercontent.com/KORThomasJeong/claude-setup/main/install.sh | sh
+```
+
+필요한 것: `claude`, `git`, `node`(18 이상).
 설치가 끝나면 Claude Code를 다시 시작하세요.
 
 선택 항목(telegram 등)까지 설치하려면 `install.ps1 -WithOptional` / `install.sh --with-optional`을 쓰면 됩니다.
@@ -97,17 +105,21 @@ node setup.mjs export --overwrite 스킬이름 --push
 
 ## 현재 들어 있는 것 (2026-11-06 기준)
 
-- 플러그인: superpowers, frontend-design, context7, claude-hud, hwpx-plugin, security-audit, ph(planning-helper-kit), loop-runner, research-prompter, telegram(선택)
+- 플러그인: superpowers, frontend-design, claude-hud, hwpx-plugin, security-audit, ph(planning-helper-kit), research-prompter, telegram(선택)
 - 스킬 패키지: mattpocock/skills 31개, vercel-labs/skills(find-skills), awslabs/agent-plugins(aws-architecture-diagram)
 - `skills/`: research-sources, reverse-engineer-anything, lookbook, g-c-design-system, styleseed 계열(ss-*, styleseed-design-review), 원본에서 사라진 mattpocock 옛 스킬(caveman, diagnose, to-prd 등)
 
 일부러 뺀 것
 - `mattpocock-skills@claude-plugins-official` 플러그인: `npx skills`로 받는 mattpocock 스킬과 겹침
-- `릴리즈` 스킬: oracle1의 `/home/ubuntu/Osync` 전용이라 그 프로젝트의 `.claude/skills`에 두는 것이 맞음
+- `context7`, `loop-runner` 플러그인: 쓰지 않아 제외 (`ignorePlugins`에 있어 export해도 다시 들어오지 않음)
+- `릴리즈` 스킬: 특정 프로젝트 전용이라 그 프로젝트의 `.claude/skills`에 두는 것이 맞음
 - claude.ai 계정 스킬(`~/.claude/skills/synced`): 같은 계정으로 로그인하면 자동으로 들어옴
 - `settings.json`, 텔레그램 토큰, MCP 서버 설정: PC마다 다르거나 비밀값이 있어 올리지 않음
 
 ## 주의
+
+- `skills/`의 일부는 다른 MIT 프로젝트에서 가져온 사본입니다. 출처와 저작권은 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 있습니다.
+- 공개 레포입니다. 스킬을 export하기 전에 API 키·내부 주소 같은 것이 들어 있지 않은지 확인하세요.
 
 - `reverse-engineer-anything` 스킬은 `rea` MCP 서버(`npx -y rea-agents@6.7.0 mcp`)가 있어야 쓸 수 있습니다. MCP는 이 레포가 설치하지 않습니다.
 - `research-sources`는 `KCI_API_KEY`, `SCIENCEON_TOKEN` 같은 키를 환경변수로 읽습니다. 키는 레포에 넣지 마세요.

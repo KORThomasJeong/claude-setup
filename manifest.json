@@ -21,10 +21,6 @@
       "repo": "KORThomasJeong/planning-helper-kit"
     },
     {
-      "name": "claude-loop-runner",
-      "repo": "KORThomasJeong/claude-loop-runner"
-    },
-    {
       "name": "claude-research-prompter",
       "repo": "KORThomasJeong/claude-research-prompter"
     }
@@ -37,9 +33,6 @@
       "id": "frontend-design@claude-plugins-official"
     },
     {
-      "id": "context7@claude-plugins-official"
-    },
-    {
       "id": "claude-hud@claude-hud"
     },
     {
@@ -50,9 +43,6 @@
     },
     {
       "id": "ph@planning-helper-kit"
-    },
-    {
-      "id": "loop-runner@claude-loop-runner"
     },
     {
       "id": "research-prompter@claude-research-prompter"
@@ -114,7 +104,9 @@
     }
   ],
   "ignorePlugins": [
-    "mattpocock-skills@claude-plugins-official"
+    "mattpocock-skills@claude-plugins-official",
+    "context7@claude-plugins-official",
+    "loop-runner@claude-loop-runner"
   ],
   "ignoreSkills": [
     "릴리즈"
