@@ -23,6 +23,16 @@ const USER_SKILLS = path.join(CLAUDE_DIR, 'skills');
 const AGENTS_LOCK = path.join(HOME, '.agents', '.skill-lock.json');
 const IS_WIN = process.platform === 'win32';
 
+// 네이티브 설치본(~/.local/bin/claude)이 PATH에 없는 셸(ssh 비로그인 등)에서도 찾도록
+{
+  const localBin = path.join(HOME, '.local', 'bin');
+  const sep = IS_WIN ? ';' : ':';
+  if (fs.existsSync(path.join(localBin, IS_WIN ? 'claude.exe' : 'claude')) &&
+      !(process.env.PATH || '').split(sep).includes(localBin)) {
+    process.env.PATH = localBin + sep + (process.env.PATH || '');
+  }
+}
+
 const argv = process.argv.slice(2);
 const cmd = argv[0];
 const flag = (f) => argv.includes(f);
